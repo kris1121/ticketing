@@ -1,0 +1,7 @@
+**/node_modules
+**/.next
+auth/node_modules
+client/node_modules
+tickets/node_modules
+common/node_modules
+nats-test/node_modules
