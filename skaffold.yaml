@@ -11,10 +11,18 @@ build:
     - image: kris2111/client
       context: client
       docker:
-        dockerfile: Dockerfile      
+        dockerfile: Dockerfile
+    - image: kris2111/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
 manifests:
   rawYaml:
-    - infra/k8s/auth-depl.yaml
-    - infra/k8s/ingress-srv.yaml
-    - infra/k8s/auth-mongo-depl.yaml
-    - infra/k8s/client-depl.yaml
+    # - infra/k8s/auth-depl.yaml
+    # - infra/k8s/ingress-srv.yaml
+    # - infra/k8s/auth-mongo-depl.yaml
+    # - infra/k8s/client-depl.yaml
+    # - infra/k8s/tickets-depl.yaml
+    # - infra/k8s/tickets-mongo-depl.yaml
+    # - infra/k8s/nats-depl.yaml
+    - infra/k8s/*
