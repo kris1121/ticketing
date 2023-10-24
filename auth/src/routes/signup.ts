@@ -4,8 +4,13 @@ import jwt from "jsonwebtoken";
 import { BadRequestError, validateRequest } from "@krismat/common";
 
 import { User } from "../models/user";
+<<<<<<< HEAD
 
 
+=======
+import { BadRequestError } from "../errors/bad-request-error";
+import { validateRequest } from "../middlewares/validate-request";
+>>>>>>> e5107c33b2aa679eb4620fcf30e31e3b33f63de2
 
 
 const router = express.Router();

@@ -1,10 +1,18 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken"
+<<<<<<< HEAD
 import { validateRequest, BadRequestError } from "@krismat/common";
 
 import { User } from "../models/user";
 import { Password } from "../services/password";
+=======
+
+import { validateRequest } from "../middlewares/validate-request";
+import { User } from "../models/user";
+import { Password } from "../services/password";
+import { BadRequestError } from "../errors/bad-request-error";
+>>>>>>> e5107c33b2aa679eb4620fcf30e31e3b33f63de2
 
 const router = express.Router();
 
