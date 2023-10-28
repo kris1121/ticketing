@@ -1,0 +1,55 @@
+import request from 'supertest';
+import mongoose from 'mongoose';
+
+import { app } from '../../app';
+import { signupHelper } from '../../test/setup';
+import { Order, OrderStatus } from '../../models/order';
+import { Ticket } from '../../models/ticket';
+
+it('returns an error if the ticket does not exists', async () => {
+  const ticketId = new mongoose.Types.ObjectId();
+
+  await request(app)
+  .post('/api/orders')
+  .set('Cookie', signupHelper())
+  .send({ ticketId })
+  .expect(404)
+});
+
+it('returns an error if the ticket is already reserved', async () => {
+  const ticket = Ticket.build({
+    title: 'concert',
+    price: 120
+  });
+  await ticket.save();
+
+  const order = Order.build({
+    userId: 'lkjhlkjhlj',
+    ticket,
+    status: OrderStatus.Created,
+    expiresAt: new Date()
+  });
+  await order.save();
+
+  await request(app)
+  .post('/api/orders')
+  .set('Cookie', signupHelper())
+  .send({ ticketId: ticket.id })
+  .expect(400)
+});
+
+it('reserves the ticket', async () => {
+  const ticket = Ticket.build({
+    title: 'concert',
+    price: 120
+  });
+  await ticket.save();
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', signupHelper())
+    .send({ ticketId: ticket.id })
+    .expect(201)
+});
+
+it.todo('emits an order created event');
