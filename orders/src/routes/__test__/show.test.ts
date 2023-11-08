@@ -1,4 +1,5 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 
 import { app } from '../../app';
 import { signupHelper } from '../../test/setup';
@@ -8,6 +9,7 @@ it('fetches an order', async () => {
   const user = signupHelper();
 
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'concert',
     price: 130
   });
@@ -15,16 +17,16 @@ it('fetches an order', async () => {
   await ticket.save();
 
   const { body: order } = await request(app)
-  .post(`/api/orders`)
-  .set('Cookie', user)
-  .send({ ticketId: ticket.id})
-  .expect(201)
+    .post(`/api/orders`)
+    .set('Cookie', user)
+    .send({ ticketId: ticket.id })
+    .expect(201)
 
   const response = await request(app)
-  .get(`/api/orders/${order.id}`)
-  .set('Cookie', user)
-  .send()
-  .expect(200)
+    .get(`/api/orders/${order.id}`)
+    .set('Cookie', user)
+    .send()
+    .expect(200)
 
   expect(response.body.id).toEqual(order.id);
 });
@@ -32,6 +34,7 @@ it('fetches an order', async () => {
 it('returns an error if one user tries to fetch another users order', async () => {
 
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'concert',
     price: 130
   });
