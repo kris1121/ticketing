@@ -15,4 +15,9 @@ export default ({ req }) => {
       baseURL: '/'
     });
   }
+
+  // return axios.create({
+  //   baseURL: 'http://ticketing.dev'
+  // })
+
 }

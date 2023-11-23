@@ -36,7 +36,7 @@ export default ({ url, method, body, onSuccess }) => {
         }
       })
       let obj = {};
-      if (errors.length > 0) {
+      if (errors?.length > 0) {
         errors.forEach(item => {
           for (let [key, value] of Object.entries(item)) {
             obj[key] = value
